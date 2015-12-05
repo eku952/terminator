@@ -11,15 +11,15 @@ public class TeleOp extends OpMode {
   private Servo mainRaise;
   private Servo climberR;
   //private Servo servoM;
-  //private DcMotor tapeMeasure;
-  //private DcMotor hook;
+  private DcMotor tapeMeasure;
+  private DcMotor hook;
 
   @Override
   public void init() {
     Right = hardwareMap.dcMotor.get("Right");
     Left = hardwareMap.dcMotor.get("Left");
-    //tapeMeasure = hardwareMap.dcMotor.get("TapeMeasure");
-    //hook = hardwareMap.dcMotor.get("Hook");
+    tapeMeasure = hardwareMap.dcMotor.get("TapeMeasure");
+    hook = hardwareMap.dcMotor.get("Hook");
     mainRaise = hardwareMap.servo.get("MainRaise");
     climberR = hardwareMap.servo.get("ClimberR");
     Left.setDirection(DcMotor.Direction.REVERSE);
@@ -31,8 +31,8 @@ public class TeleOp extends OpMode {
 
   @Override
   public void loop() {
-    float leftY = -gamepad1.left_stick_y;
-    float rightY = -gamepad1.right_stick_y;
+    float leftY = gamepad1.left_stick_y;
+    float rightY = gamepad1.right_stick_y;
     boolean toggled = false;
     double factor = 0.25;
     //double servoPositionR = 0;
@@ -42,18 +42,19 @@ public class TeleOp extends OpMode {
       toggled = true;
     telemetry.addData("Inverted Controls", (toggled ? "On":"Off"));
     if(toggled) {
-        leftY = gamepad1.left_stick_y;
-        rightY = gamepad1.right_stick_y;
+        leftY = -gamepad1.left_stick_y;
+        rightY = -gamepad1.right_stick_y;
     }
 
-    /*if(gamepad2.right_trigger > 0.25) {
+    if(gamepad2.right_trigger > 0.25) {
       tapeMeasure.setPower(gamepad2.right_trigger);
+      hook.setPower(gamepad2.right_trigger);
+    }
+    if(gamepad2.left_trigger > 0.25) {
+      tapeMeasure.setPower(-gamepad2.left_trigger);
+      hook.setPower(-gamepad2.left_trigger);
     }
 
-    if(gamepad2.left_trigger > 0.25) {
-      hook.setPower(gamepad2.left_trigger);
-    }
-*/
     if(gamepad1.right_trigger > 0.25)
       factor = gamepad1.right_trigger;
 
