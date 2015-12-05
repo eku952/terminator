@@ -3,6 +3,7 @@ package com.qualcomm.ftcrobotcontroller.opmodes.customcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
+import com.qualcomm.robotcore.hardware.Servo;
 
 public class ETAutonomousBase extends LinearOpMode {
 
@@ -29,6 +30,7 @@ public class ETAutonomousBase extends LinearOpMode {
   protected boolean loopBreaker;
   protected DcMotor right;
   protected DcMotor left;
+  protected Servo mainRaise;
 
   //CONTROL STAGES
   final static int STAGE_MOVE_FIRST = 1;
@@ -42,11 +44,13 @@ public class ETAutonomousBase extends LinearOpMode {
     right = hardwareMap.dcMotor.get("Right");
     left = hardwareMap.dcMotor.get("Left");
     left.setDirection(DcMotor.Direction.REVERSE);
+    mainRaise = hardwareMap.servo.get("MainRaise");
+    mainRaise.setPosition(0.5);
   }
   public void etSetup() throws InterruptedException {
 
     // Reset all variables to initial value
-
+    mainRaise.setPosition(0);
     // Stage = first stage
     stage = STAGE_MOVE_FIRST;
     // Loop is not broken
@@ -55,6 +59,7 @@ public class ETAutonomousBase extends LinearOpMode {
     isTargetSet = false;
     // Counts is 0
     counts = 0;
+    waitOneFullHardwareCycle();
   }
   public void etLoop() throws InterruptedException {
     
