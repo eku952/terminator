@@ -3,6 +3,7 @@ package com.qualcomm.ftcrobotcontroller.opmodes.customcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.Range;
 
 
 public class TeleOp extends OpMode {
@@ -47,12 +48,16 @@ public class TeleOp extends OpMode {
     }
 
     if(gamepad2.right_stick_y > 0.25) {
-      tapeMeasure.setPower(gamepad2.right_stick_y);
-      hook.setPower(gamepad2.right_stick_y);
+      double power = gamepad2.right_stick_y;
+      Range.clip(power, 0, 1);
+      tapeMeasure.setPower(power);
+      hook.setPower(power);
     }
     if(gamepad2.right_stick_y < -0.25) {
-      tapeMeasure.setPower(gamepad2.right_stick_y);
-      hook.setPower(gamepad2.right_stick_y);
+      double power = gamepad2.right_stick_y;
+      Range.clip(power, 0, 1);
+      tapeMeasure.setPower(power);
+      hook.setPower(power);
     }
     if( -0.26 < gamepad2.right_stick_y && gamepad2.right_stick_y <= 0.25) {
       tapeMeasure.setPowerFloat();

@@ -50,7 +50,7 @@ public class ETAutonomousBase extends LinearOpMode {
   public void etSetup() throws InterruptedException {
 
     // Reset all variables to initial value
-
+    mainRaise.setPosition(0);
     // Stage = first stage
     stage = STAGE_MOVE_FIRST;
     // Loop is not broken
@@ -59,6 +59,7 @@ public class ETAutonomousBase extends LinearOpMode {
     isTargetSet = false;
     // Counts is 0
     counts = 0;
+    waitOneFullHardwareCycle();
   }
   public void etLoop() throws InterruptedException {
     
