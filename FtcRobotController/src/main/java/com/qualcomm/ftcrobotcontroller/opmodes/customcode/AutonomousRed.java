@@ -9,19 +9,7 @@
 
 package com.qualcomm.ftcrobotcontroller.opmodes.customcode;
 
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorController;
-
-
 public class AutonomousRed extends ETAutonomousBase {
-
-  /*@Override
-  public void etInit() throws InterruptedException {
-    waitOneFullHardwareCycle();
-    right.setMode(DcMotorController.RunMode.RESET_ENCODERS);
-    left.setMode(DcMotorController.RunMode.RESET_ENCODERS);
-    waitOneFullHardwareCycle();
-  }*/
 
   @Override
   public void etLoop() throws InterruptedException {
