@@ -35,8 +35,8 @@ public class TeleOp extends OpMode {
 
   @Override
   public void loop() {
-    float leftY = gamepad1.left_stick_y;
-    float rightY = gamepad1.right_stick_y;
+    float leftY = -gamepad1.left_stick_y;
+    float rightY = -gamepad1.right_stick_y;
     boolean toggled = false;
     double factor = 0.25;
     //double servoPositionR = 0;
@@ -46,21 +46,21 @@ public class TeleOp extends OpMode {
       toggled = true;
     telemetry.addData("Inverted Controls", (toggled ? "On":"Off"));
     if(toggled) {
-        leftY = -gamepad1.left_stick_y;
-        rightY = -gamepad1.right_stick_y;
+        leftY = gamepad1.left_stick_y;
+        rightY = gamepad1.right_stick_y;
     }
 
     if(gamepad2.right_stick_y > 0.25) {
       double power = gamepad2.right_stick_y;
       Range.clip(power, 0, 1);
-      tapeMeasure.setPower(power);
-      hook.setPower(power);
+      tapeMeasure.setPower(0.25);
+      hook.setPower(0.25);
     }
     if(gamepad2.right_stick_y < -0.25) {
       double power = gamepad2.right_stick_y;
       Range.clip(power, 0, -1);
-      tapeMeasure.setPower(power);
-      hook.setPower(power);
+      tapeMeasure.setPower(-0.25);
+      hook.setPower(-0.25);
     }
     if( -0.25 <= gamepad2.right_stick_y && gamepad2.right_stick_y <= 0.25) {
       tapeMeasure.setPowerFloat();
