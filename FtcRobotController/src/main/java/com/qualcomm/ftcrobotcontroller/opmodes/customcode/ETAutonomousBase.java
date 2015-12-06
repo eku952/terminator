@@ -24,6 +24,8 @@ public class ETAutonomousBase extends LinearOpMode {
   protected DcMotor right;
   protected DcMotor left;
   protected Servo mainRaise;
+  protected Servo climberL;
+  protected Servo climberR;
 
   // Variables
   protected static boolean isTargetSet = false;
@@ -44,7 +46,13 @@ public class ETAutonomousBase extends LinearOpMode {
     left = hardwareMap.dcMotor.get("Left");
     left.setDirection(DcMotor.Direction.REVERSE);
     mainRaise = hardwareMap.servo.get("MainRaise");
-    mainRaise.setPosition(0.5);
+    climberR = hardwareMap.servo.get("ClimberR");
+    climberL = hardwareMap.servo.get("ClimberL");
+    climberL.setDirection(Servo.Direction.REVERSE);
+    mainRaise.setPosition(0.52);
+    climberR.setPosition(0);
+    climberL.setPosition(0);
+
   }
   public void etSetup() throws InterruptedException {
 
