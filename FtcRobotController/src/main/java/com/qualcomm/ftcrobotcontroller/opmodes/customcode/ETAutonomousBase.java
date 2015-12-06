@@ -18,7 +18,7 @@ public class ETAutonomousBase extends LinearOpMode {
   final static double WHEEL_DIAMETER = 2.625;     // Diameter of wheel
   final static double CIRCUMFERENCE = Math.PI * WHEEL_DIAMETER;
   final static int ERROR_THRESHOLD = 10;
-  public static final int TURN_DELAY = 800;
+  public static final int TURN_DELAY = 1250;
 
   // Declare hardware devices
   protected DcMotor right;
@@ -57,7 +57,7 @@ public class ETAutonomousBase extends LinearOpMode {
   public void etSetup() throws InterruptedException {
 
     // Reset all variables to initial value
-    mainRaise.setPosition(0);
+    mainRaise.setPosition(0.95);
     // Stage = first stage
     stage = STAGE_MOVE_FIRST;
     // Loop is not broken
