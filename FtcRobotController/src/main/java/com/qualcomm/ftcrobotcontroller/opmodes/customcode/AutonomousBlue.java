@@ -1,20 +1,15 @@
+/*
+ * Copyright (c) 2015 Edina Terminators Robotics
+ *
+ * This software is distributed under the MIT License. The license text can be read in full at /LICENSE.txt
+ * Authored by:
+ * Luke Langefels <https://eku952@github.com>
+ * Richik Sinha Choudhury <https://richiksc@github.com>
+ */
+
 package com.qualcomm.ftcrobotcontroller.opmodes.customcode;
 
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorController;
-
 public class AutonomousBlue extends ETAutonomousBase {
-
-  /*@Override
-  public void etInit() throws InterruptedException {
-    right = hardwareMap.dcMotor.get("Right");
-    left = hardwareMap.dcMotor.get("Left");
-    left.setDirection(DcMotor.Direction.REVERSE);
-    waitOneFullHardwareCycle();
-    right.setMode(DcMotorController.RunMode.RESET_ENCODERS);
-    left.setMode(DcMotorController.RunMode.RESET_ENCODERS);
-    waitOneFullHardwareCycle();
-  }*/
 
   @Override
   public void etLoop() throws InterruptedException {

@@ -13,26 +13,27 @@ public class ETAutonomousBase extends LinearOpMode {
   public static final double MOVE_SECOND_DISTANCE = 24 / DIST_FACTOR;
   public static final double REVERSE_FIRST_DISTANCE = -27 / DIST_FACTOR;
 
-  final static int ENCODER_CPR = 1440;    //encoder counts per revolution
-  final static double GEAR_RATIO = 1;     //gear ratio
-  final static double WHEEL_DIAMETER = 2.625;     //diameter of wheel
+  final static int ENCODER_CPR = 1440;            // Encoder counts per revolution
+  final static double GEAR_RATIO = 1;             // Gear ratio
+  final static double WHEEL_DIAMETER = 2.625;     // Diameter of wheel
   final static double CIRCUMFERENCE = Math.PI * WHEEL_DIAMETER;
   final static int ERROR_THRESHOLD = 10;
   public static final int TURN_DELAY = 800;
 
-
-  protected static boolean isTargetSet = false;
-  protected static double counts = 0;
-
-  //protected static boolean isTurnTargetSet = false;
-
-  protected static int stage;
-  protected boolean loopBreaker;
+  // Declare hardware devices
   protected DcMotor right;
   protected DcMotor left;
   protected Servo mainRaise;
+  protected Servo climberL;
+  protected Servo climberR;
 
-  //CONTROL STAGES
+  // Variables
+  protected static boolean isTargetSet = false;
+  protected static double counts = 0;
+  protected static int stage;
+  protected boolean loopBreaker;
+
+  // CONTROL STAGES
   final static int STAGE_MOVE_FIRST = 1;
   final static int STAGE_MOVE_SECOND = 2;
   final static int STAGE_TURN_FIRST = 3;
@@ -45,7 +46,13 @@ public class ETAutonomousBase extends LinearOpMode {
     left = hardwareMap.dcMotor.get("Left");
     left.setDirection(DcMotor.Direction.REVERSE);
     mainRaise = hardwareMap.servo.get("MainRaise");
-    mainRaise.setPosition(0.5);
+    climberR = hardwareMap.servo.get("ClimberR");
+    climberL = hardwareMap.servo.get("ClimberL");
+    climberL.setDirection(Servo.Direction.REVERSE);
+    mainRaise.setPosition(0.52);
+    climberR.setPosition(0);
+    climberL.setPosition(0);
+
   }
   public void etSetup() throws InterruptedException {
 
