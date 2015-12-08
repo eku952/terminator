@@ -10,7 +10,7 @@ public class TeleOp extends OpMode {
   public static final double MAIN_RAISE_UP = 0.55;
   public static final int CLIMBER_UP = 0;
   public static final double MAIN_RAISE_DOWN = 0.95;
-  public static final double CLIMBER_DOWN = 0.5;
+  public static final double CLIMBER_DOWN = 0.8;
   private DcMotor right;
   private DcMotor left;
   private Servo mainRaise;
