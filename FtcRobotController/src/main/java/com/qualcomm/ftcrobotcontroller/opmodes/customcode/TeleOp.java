@@ -7,8 +7,12 @@ import com.qualcomm.robotcore.util.Range;
 
 
 public class TeleOp extends OpMode {
-  private DcMotor Right;
-  private DcMotor Left;
+  public static final double MAIN_RAISE_UP = 0.55;
+  public static final int CLIMBER_UP = 0;
+  public static final double MAIN_RAISE_DOWN = 0.95;
+  public static final double CLIMBER_DOWN = 0.5;
+  private DcMotor right;
+  private DcMotor left;
   private Servo mainRaise;
   private Servo climberR;
   private Servo climberL;
@@ -17,20 +21,20 @@ public class TeleOp extends OpMode {
 
   @Override
   public void init() {
-    Right = hardwareMap.dcMotor.get("Right");
-    Left = hardwareMap.dcMotor.get("Left");
+    right = hardwareMap.dcMotor.get("Right");
+    left = hardwareMap.dcMotor.get("Left");
     tapeMeasure = hardwareMap.dcMotor.get("TapeMeasure");
     hook = hardwareMap.dcMotor.get("Hook");
     mainRaise = hardwareMap.servo.get("MainRaise");
     climberR = hardwareMap.servo.get("ClimberR");
     climberL = hardwareMap.servo.get("ClimberL");
-    Left.setDirection(DcMotor.Direction.REVERSE);
+    left.setDirection(DcMotor.Direction.REVERSE);
     climberL.setDirection(Servo.Direction.REVERSE);
     //backRight.setDirection(DcMotor.Direction.REVERSE);
     //servoM.setPosition(0.6);
-    mainRaise.setPosition(0.55);
-    climberR.setPosition(0);
-    climberL.setPosition(0);
+    mainRaise.setPosition(MAIN_RAISE_UP);
+    climberR.setPosition(CLIMBER_UP);
+    climberL.setPosition(CLIMBER_UP);
   }
 
   @Override
@@ -38,6 +42,7 @@ public class TeleOp extends OpMode {
     float leftY = -gamepad1.left_stick_y;
     float rightY = -gamepad1.right_stick_y;
     boolean toggled = false;
+    boolean tapeIsHiPower = false;
     double factor = 0.25;
     //double servoPositionR = 0;
     //double servoPositionL = 0;
@@ -50,17 +55,29 @@ public class TeleOp extends OpMode {
         rightY = gamepad1.right_stick_y;
     }
 
+    if(gamepad2.right_trigger > 0.25) {
+      tapeIsHiPower = true;
+    } else {
+      tapeIsHiPower = false;
+    }
+
     if(gamepad2.right_stick_y > 0.25) {
       double power = gamepad2.right_stick_y;
       Range.clip(power, 0, 1);
-      tapeMeasure.setPower(0.25);
-      hook.setPower(0.25);
+      if(tapeIsHiPower) {
+        tapeMeasure.setPower(0.5);
+        hook.setPower(0.5);
+      } else {
+        tapeMeasure.setPower(0.1);
+        hook.setPower(0.1);
+      }
+
     }
     if(gamepad2.right_stick_y < -0.25) {
       double power = gamepad2.right_stick_y;
       Range.clip(power, 0, -1);
-      tapeMeasure.setPower(-0.25);
-      hook.setPower(-0.25);
+      tapeMeasure.setPower(-0.1);
+      hook.setPower(-0.1);
     }
     if( -0.25 <= gamepad2.right_stick_y && gamepad2.right_stick_y <= 0.25) {
       tapeMeasure.setPowerFloat();
@@ -73,27 +90,27 @@ public class TeleOp extends OpMode {
     telemetry.addData("Power Factor", factor);
     //telemetry.addData("ServoR", servoPositionR);
     //telemetry.addData("ServoL", servoPositionL);
-    Right.setPower(rightY * factor);
-    Left.setPower(leftY * factor);
+    right.setPower(rightY * factor);
+    left.setPower(leftY * factor);
 
     if(gamepad2.left_bumper) {
-      mainRaise.setPosition(1);
+      mainRaise.setPosition(MAIN_RAISE_DOWN);
     }
     if(gamepad2.right_bumper) {
-      mainRaise.setPosition(0.5);
+      mainRaise.setPosition(MAIN_RAISE_UP);
     }
 
     if(gamepad2.x) {
-      climberR.setPosition(0.5);
+      climberR.setPosition(CLIMBER_DOWN);
     }
     if(gamepad2.a) {
-      climberR.setPosition(0);
+      climberR.setPosition(CLIMBER_UP);
     }
     if(gamepad2.dpad_down) {
-      climberL.setPosition(0);
+      climberL.setPosition(CLIMBER_UP);
     }
     if(gamepad2.dpad_up) {
-      climberL.setPosition(0.5);
+      climberL.setPosition(CLIMBER_DOWN);
     }
   }
 }
